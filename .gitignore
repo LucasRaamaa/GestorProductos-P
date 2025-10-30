@@ -1,0 +1,58 @@
+# =========================
+# Archivos de IDEs
+# =========================
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# NetBeans
+nbproject/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# VS Code
+.vscode/
+
+# =========================
+# Archivos de compilación
+# =========================
+*.class
+*.jar
+*.war
+*.ear
+
+# =========================
+# Maven / Gradle
+# =========================
+# Maven
+target/
+
+# Gradle
+.gradle/
+build/
+
+# =========================
+# Archivos de sistema
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# Logs
+# =========================
+*.log
+
+# =========================
+# Otros
+# =========================
+*.swp
+*.swo
