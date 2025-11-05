@@ -1,5 +1,6 @@
 package com.lucasramallo.gestorproductos.config;
 
+import com.lucasramallo.gestorproductos.user.User;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,6 +30,9 @@ public class JwtService {
   }
 
   public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+    if (userDetails instanceof User) {
+      extraClaims.put("role", ((User) userDetails).getRole().name());
+    }
     return Jwts.builder()
         .setClaims(extraClaims)
         .setSubject(userDetails.getUsername())

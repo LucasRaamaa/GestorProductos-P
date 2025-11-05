@@ -5,6 +5,7 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -20,45 +21,49 @@ public class User implements UserDetails {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private Integer id;
 
-  @NotBlank(message = "El nombre de usuario no puede estar vacio")
   private String username;
 
-  @NotBlank(message = "La contraseña no puede estar vacia.")
-  private String password;
-
-  @Email(message = "Debe tener formato de email valido")
   @NotBlank(message = "El email no puede estar vacio")
+  @Email(message = "Debe ser un email válido")
   @Column(unique = true)
   private String email;
+
+  @NotBlank(message = "La contraseña no puede estar vacía")
+  private String password;
 
   @Enumerated(EnumType.STRING)
   private Role role;
 
-  // metodos de UserDetails
   @Override
-  public Collection<? extends GrantedAuthority> getAuthorities(){
-    return List.of(() -> "ROLE_" + role.name());
+  public Collection<? extends GrantedAuthority> getAuthorities() {
+    return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
   }
+
   @Override
-  public boolean isAccountNonExpired(){
+  public String getUsername() {
+    return username;
+    //return email;
+  }
+
+  @Override
+  public boolean isAccountNonExpired() {
     return true;
   }
 
   @Override
-  public boolean isAccountNonLocked(){
+  public boolean isAccountNonLocked() {
     return true;
   }
 
   @Override
-  public boolean isCredentialsNonExpired(){
+  public boolean isCredentialsNonExpired() {
     return true;
   }
 
   @Override
-  public boolean isEnabled(){
+  public boolean isEnabled() {
     return true;
   }
-
 }
