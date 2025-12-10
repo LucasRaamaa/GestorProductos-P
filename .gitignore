@@ -56,3 +56,14 @@ Thumbs.db
 # =========================
 *.swp
 *.swo
+
+# =========================
+# FRONTEND (React / Vite)
+# =========================
+node_modules/
+dist/
+
+# Archivos locales de entorno
+.env
+.env.local
+.env.*

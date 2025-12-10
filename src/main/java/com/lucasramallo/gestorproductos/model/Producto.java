@@ -15,7 +15,7 @@ public class Producto {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
+  private Integer id;
 
   @NotBlank(message = "El nombre no puede estar vacio")
   private String nombre;
