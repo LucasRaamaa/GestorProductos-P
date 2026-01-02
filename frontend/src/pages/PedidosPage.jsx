@@ -22,24 +22,25 @@ export default function PedidosPage() {
         setError("");
 
         const token = localStorage.getItem("token");
-
-        const res = await fetch(`${API_URL}/api/pedidos`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        if (!res.ok) {
-          throw new Error("Error al cargar los pedidos");
+        if(!token) {
+          throw new Error("No se encontró token de autenticación");
         }
 
-        let data = await res.json();
+        const endpoint = isAdmin ? "/api/pedidos" : "/api/pedidos/mis";
+        const res = await fetch(`${API_URL}${endpoint}`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+        const bodyText = await res.text();
+        if (!res.ok) {
+            throw new Error(`Error ${res.status}: ${bodyText}`);
+        }
 
-        // Si quisieras filtrar por cliente en el front:
-        // if (isCliente && user?.id) {
-        //   data = data.filter((p) => p.clienteId === user.id);
-        // }
-
+        let data;
+        try {
+          data = JSON.parse(bodyText);
+        } catch (e) {
+          throw new Error(`Respuesta no es JSON válido. Body: ${bodyText}`);
+        }
         setPedidos(data);
       } catch (err) {
         setError(err.message || "Error inesperado");

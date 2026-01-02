@@ -85,6 +85,18 @@ public class PedidoService {
   }
 
   // ============================================================
+  //                     LISTAR por Cliente
+  // ============================================================
+  public List<PedidoDTO> listarPorCliente(User cliente) {
+    return pedidoRepository.findByUsuarioId(cliente.getId())
+        .stream()
+        .map(this::mapToDto)
+        .toList();
+  }
+
+
+
+  // ============================================================
   //                     MAPPERS
   // ============================================================
   private PedidoDTO mapToDto(Pedido pedido) {

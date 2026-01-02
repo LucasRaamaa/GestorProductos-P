@@ -43,6 +43,16 @@ public class PedidoController {
   public ResponseEntity<List<PedidoDTO>> listarPedidos() {
     return ResponseEntity.ok(pedidoService.listarTodos());
   }
+
+  // ==============================
+  //  Cliente Mis pedidos
+  // ==============================
+  @GetMapping("/mis")
+  public ResponseEntity<List<PedidoDTO>> misPedidos(Authentication authentication) {
+    User cliente = (User) authentication.getPrincipal();
+    return ResponseEntity.ok(pedidoService.listarPorCliente(cliente));
+  }
+
 }
 
 

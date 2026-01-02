@@ -37,8 +37,9 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.DELETE, "/api/productos/**").hasRole("ADMIN")
 
             //Pedidos
-            .requestMatchers(HttpMethod.POST, "/api/pedidos/**").hasRole("CLIENTE")
-            .requestMatchers(HttpMethod.GET, "/api/pedidos/**").hasRole("ADMIN")
+            .requestMatchers(HttpMethod.POST, "/api/pedidos").hasRole("CLIENTE")
+            .requestMatchers(HttpMethod.GET, "/api/pedidos/mis").hasRole("CLIENTE")
+            .requestMatchers(HttpMethod.GET, "/api/pedidos").hasRole("ADMIN")
 
             // CLIENTE o ADMIN pueden ver productos
             .requestMatchers(HttpMethod.GET, "/api/productos/**").hasAnyRole("CLIENTE", "ADMIN")
